@@ -3,14 +3,13 @@ package LoadingBar;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
 
 
 public class LoadingBar extends JPanel {
 
         JProgressBar pbar;
 
-        public long courseLength = 4680; //4680000
+        public long courseLength = 4680000; //1h30 minutes
         public long startTime;
         public long endTime;
         public static final int MY_MINIMUM = 0;
@@ -54,22 +53,16 @@ public class LoadingBar extends JPanel {
 
         // run a loop to demonstrate raising
         while (loadingBar.getProgress() < 100) {
-            loadingBar.updateBar(loadingBar.getProgress());
-            
+            try
+            {
+                loadingBar.updateBar(loadingBar.getProgress());
+                Thread.sleep(1000); //to ease the processor suffering
+            }
+            catch(InterruptedException e){
+                ;
+            }
         }
+        loadingBar.updateBar(MY_MAXIMUM);
     }
 }
 
-
-    /*
-    try {
-                    SwingUtilities.invokeLater(new Runnable() {
-                        public void run() {
-                            loadingBar.updateBar(percent);
-                        }
-                   });
-                    java.lang.Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    ;
-                }
-     */
